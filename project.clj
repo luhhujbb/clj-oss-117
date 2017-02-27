@@ -1,4 +1,4 @@
-(defproject oss-117 "0.1.0-SNAPSHOT"
+(defproject oss-117 "0.1.0"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -12,4 +12,6 @@
                            [org.slf4j/jcl-over-slf4j "1.7.19"]
                            [log4j "1.2.17"]
                             ;;alicloud oss
-                           [com.aliyun.oss/aliyun-sdk-oss "2.4.0"]])
+                           [com.aliyun.oss/aliyun-sdk-oss "2.5.0"]]
+   :profiles {:uberjar {:aot :all}
+              :dev {:aot :all}})
