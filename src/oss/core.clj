@@ -76,7 +76,7 @@
 
 (defn put-string
   [^OSSClient client bucket-name key ^String data]
-    (put-object bucket-name key (ByteArrayInputStream. (.getBytes data "UTF-8"))))
+    (put-object client bucket-name key (ByteArrayInputStream. (.getBytes data "UTF-8"))))
 
 (defn get-object
   [client bucket-name key]
@@ -88,9 +88,10 @@
      :content (.getObjectContent oss-object)
      :key key}))
 
-(defn get-object-string
+(defn get-string
   [client bucket-name key]
-  (slurp (:content (get-object bucket-name key))))
+  (when-let [obj (get-object client bucket-name key)]
+    (slurp (:content obj))))
 
 (defn delete-object
   "Delete object"
@@ -98,4 +99,4 @@
   (call-oss
     client
     (fn [client]
-      (.deleteObject bucket-name key))))
+      (.deleteObject client bucket-name key))))
