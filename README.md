@@ -33,14 +33,15 @@ A Clojure library to interact with aliyuncs oss (object storage) equivalent to a
 
 ### Object Operations
 ```clojure
-;;Create a new object from file
+;;Create a new object from a file object
 (put-file client "your-bucket-name" "your-key-file" (file "filepath"))
 ;; put an utf-8 string
 (put-string client "your-bucket-name" "your-key-string" "the string you want to store into oss")
 ;;put an object as input stream
 (put-object client "your-bucket-name" "your-key-object" input-stream)
 
-
+;;get-file : write content into a file
+(get-file client "your-bucket-name" "your-key-file" "filepath")
 ;;get-object
 (get-object client "your-bucket-name" "your-key-object")
 ;;get-string

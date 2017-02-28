@@ -2,7 +2,8 @@
   (:import [com.aliyun.oss OSSClient ClientException OSSException]
            [java.io File ByteArrayInputStream InputStream FileNotFoundException IOException]
            [com.aliyun.oss.model AppendObjectRequest OSSObject])
-  (:require [clojure.tools.logging :as log]))
+  (:require [clojure.tools.logging :as log]
+            [clojure.java.io :as io]))
 
 (defn mk-oss-client
   [endpoint ak sk]
@@ -87,6 +88,11 @@
     {:bucket-name bucket-name
      :content (.getObjectContent oss-object)
      :key key}))
+
+(defn get-file
+  [^OSSClient client bucket-name key file-path]
+  (when-let [obj (get-object client bucket-name key)]
+    (io/copy (:content obj) (io/file file-path))))
 
 (defn get-string
   [client bucket-name key]
